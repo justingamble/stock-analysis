@@ -1,7 +1,8 @@
 defmodule StockAnalysis do
   @moduledoc """
-  Read the supplied file containing stock tickers, lookup stats on each
-  stock, and write out a spreadsheet that highlights key stats.
+  Reads the supplied configuration file containing stock tickers,
+  looks up stats on each stock, and
+  writes out a spreadsheet that highlights key stats.
   """
 
   @doc """
@@ -14,7 +15,12 @@ defmodule StockAnalysis do
 
   """
   def main(config_file) do
-#    {milliseconds, _value} = :timer.tc(
-     IO.puts("StockAnalysis main entered!  Config file: #{config_file}\n")
+    #    {milliseconds, _value} = :timer.tc(
+    IO.puts("StockAnalysis main entered!  Config file: #{config_file}\n")
+    File.stream!(config_file)
+    |> Stream.map(&String.strip/1)
+    |> Stream.with_index
+    |> Stream.map(fn ({line, index}) -> IO.puts "#{index + 1} #{line}" end)
+    |> Stream.run
   end
 end

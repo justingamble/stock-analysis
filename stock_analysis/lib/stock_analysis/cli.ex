@@ -28,7 +28,9 @@ defmodule StockAnalysis.CLI do
       {[config_file: config_file], _, _} ->
         validate_args(config_file)
         StockAnalysis.main(config_file)
-      _ -> do_help()
+
+      _ ->
+        do_help()
     end
   end
 
@@ -40,7 +42,7 @@ defmodule StockAnalysis.CLI do
   end
 
   defp do_help() do
-    IO.puts """
+    IO.puts("""
     Usage:
       stock_analysis --config_file [path]
 
@@ -49,7 +51,6 @@ defmodule StockAnalysis.CLI do
 
     Example:
       ./stock_analysis --config_file ./my_config_file.txt
-    """
+    """)
   end
-
 end
