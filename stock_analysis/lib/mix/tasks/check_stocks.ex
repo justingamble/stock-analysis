@@ -6,6 +6,6 @@ defmodule Mix.Tasks.CheckStocks do
   # The @shortdoc allows 'mix help' to show our application.
   @shortdoc "Check the stats on the stocks listed in 'stock_tickers.txt'"
   def run(_) do
-    StockAnalysis.CLI.run(["--config-file", "./stocks_tickers.txt"])
+    StockAnalysis.CLI.run(["--config", "./stocks_tickers.txt"])
   end
 end

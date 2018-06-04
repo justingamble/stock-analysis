@@ -14,29 +14,30 @@ defmodule StockAnalysis.CLI do
       args,
       switches: [
         help: :boolean,
-        config_file: :string
+        config: :string
       ],
       aliases: [
         h: :help,
-        c: :config_file
+        c: :config
       ]
     )
   end
 
   defp process_options(options) do
     case options do
-      {[config_file: config_file], _, _} ->
-        validate_args(config_file)
-        StockAnalysis.main(config_file)
+      {[config: config], _, _} ->
+        validate_args(config)
+        StockAnalysis.main(config)
 
       _ ->
+        IO.puts("Received options: #{inspect options}")
         do_help()
     end
   end
 
-  defp validate_args(config_file) do
-    if not File.exists?(config_file) do
-      IO.puts("ERROR: config_file '#{config_file}' does not exist")
+  defp validate_args(config) do
+    if not File.exists?(config) do
+      IO.puts("ERROR: config '#{config}' does not exist")
       System.halt(1)
     end
   end
@@ -44,13 +45,13 @@ defmodule StockAnalysis.CLI do
   defp do_help() do
     IO.puts("""
     Usage:
-      stock_analysis --config_file [path]
+      stock_analysis --config [path]
 
     Options:
-      config_file: text file, where each line contains a stock ticker.
+      config: text file, where each line contains a stock ticker.
 
     Example:
-      ./stock_analysis --config_file ./my_config_file.txt
+      ./stock_analysis --config ./my_config.txt
     """)
   end
 end

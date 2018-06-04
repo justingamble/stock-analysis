@@ -3,6 +3,7 @@ defmodule StockAnalysisTest do
   doctest StockAnalysis
 
   test "greets the world" do
-    assert StockAnalysis.hello() == :world
+    IO.puts("Hi")
+    #assert StockAnalysis.hello() == :world
   end
 end
