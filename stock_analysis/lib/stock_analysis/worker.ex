@@ -2,9 +2,25 @@ defmodule StockAnalysis.Worker do
   @moduledoc """
   For the specified stock ticker, it looks up informmation.
   """
+  alias StockAnalysis.StockInfo
 
   def get_ticker_info(ticker) do
     IO.puts("StockAnalysis.Worker get_ticker_info() entered!  Received ticker: '#{ticker}'\n")
+
+    %StockInfo{ticker: ticker}
+    |> process_key_stats
+    # Add all the process calls you want, each calling Stoxir and grabbing what is useful
+    |> IO.inspect()
+  end
+
+  def process_key_stats(stats = %{ticker: ticker} = %StockInfo{}) do
+    key_stats = Stoxir.key_stats(ticker)
+    IO.puts("Key stats of #{ticker}: #{inspect key_stats}")
+    IO.puts("-------------------------------")
+    %{company_name: company_name,
+      dividend_yield: dividend_yield,
+      shares_outstanding: shares_outstanding} = key_stats
+
 ##    %{ primary_exchange: primary_exchange,
 #      company_name: company_name,
 #      delayed_price: delayed_price,
@@ -12,12 +28,9 @@ defmodule StockAnalysis.Worker do
 #      week52_high: week52_high,
 #      week52_low: week52_low} = Stoxir.quote(ticker)
 
-#### UNCOMENT ME    Stoxir.quote(ticker)
-
-#    IO.puts("Stoxir returns: #{inspect Stoxir.quote(ticker)}")
-
-#    IO.puts("Thread for #{ticker} found company_name #{company_name}")
-##    IO.puts("   Map is #{IO.inspect map}")
-#    map
+    %{stats | company_name: company_name,
+              dividend_yield: dividend_yield,
+              shares_outstanding: shares_outstanding}
   end
+
 end
