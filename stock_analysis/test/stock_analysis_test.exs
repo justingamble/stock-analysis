@@ -4,6 +4,6 @@ defmodule StockAnalysisTest do
 
   test "greets the world" do
     IO.puts("Hi")
-    #assert StockAnalysis.hello() == :world
+    # assert StockAnalysis.hello() == :world
   end
 end

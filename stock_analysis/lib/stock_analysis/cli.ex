@@ -30,7 +30,7 @@ defmodule StockAnalysis.CLI do
         StockAnalysis.main(config)
 
       _ ->
-        IO.puts("Received options: #{inspect options}")
+        IO.puts("Received options: #{inspect(options)}")
         do_help()
     end
   end
